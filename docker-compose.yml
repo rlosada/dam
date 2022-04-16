@@ -1,0 +1,67 @@
+version: '3'
+
+services:
+    # Base de datos
+    # La carpeta /docker-entrypoint-initdb.d debe poseer los archivos *.sql que quieran
+    # ejecutarse ni bien arranque el container para generar la base de datos
+    # La carpeta /var/lib/mysql es la carpeta donde efectivamente se crean los archivos
+    # que forman la base de datos. Si la carpeta "data" no existe entonces, la imagen
+    # efectivamente ejecuta el script encontrado y crea la base. Si por el contrario la carpeta
+    # existe la imagen asume que el script fue ejecutado antes y que el contenido de data ya es
+    # la base
+    mysql-server:
+        image:                   mysql:5.7
+        hostname:                mysql-server
+        environment:
+            MYSQL_ROOT_PASSWORD: userpass # password del root user de mysql
+        volumes:
+            -                    ./db/dumps:/docker-entrypoint-initdb.d
+            -                    ./db/data:/var/lib/mysql
+        networks:
+            -                    dam-network
+
+    # Adminstrador WEB de la base de datos
+    mysql-admin:
+        container_name:          db
+        image:                   phpmyadmin/phpmyadmin
+        environment: 
+            PMA_HOST:            mysql-server
+            PMA_PORT:            3306
+            MYSQL_ROOT_PASSWORD: userpass  # password del root para el adminstrador web { user , pass} = { root, userpass}
+        networks:
+            -                    dam-network
+        depends_on:
+            -                    mysql-server
+        ports:
+            -                    "8001:80"
+    # Backend (NodeJS)
+    node-backend:
+        container_name:          nodejs
+        image:                   dam:1.0.0
+        volumes:
+            -                    ./src/backend:/home/node/app/src
+        networks:
+            -                    dam-network
+        depends_on:
+            -                    mysql-server
+        ports: 
+            -                    "8000:3000"
+        command:                 bash -c "cd /home/node/app/src && npm install && nodemon -L /home/node/app/src/index.js"
+
+    # Frontend (Ionic)
+    ionic-frontend:
+        container_name:          ionic
+        image:                   dam:1.0.0
+        volumes:
+            -                    ./src/frontend/ionicApp:/home/node/app/static
+        networks:
+            -                    dam-network
+        depends_on:
+            -                    mysql-server
+        ports: 
+            -                    "8100:8100"
+        command:                 bash -c "cd /home/node/app/static && ionic serve --external"
+
+networks:
+    dam-network:
+        driver:                  bridge
