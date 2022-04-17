@@ -12,7 +12,10 @@ const getRoutes     = require('./routes/get');
 const patchRoutes   = require('./routes/patch')
 const logger        = require('./logger');          
 const configParams  = require('./enviroment')
+const cors          = require('cors');
 
+// cors
+app.use(cors());
 // to parse application/json
 app.use(express.json()); 
 // to serve static files
