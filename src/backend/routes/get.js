@@ -7,7 +7,7 @@
  *------------------------------------------------------------------*/
 
  // Funciones exportadas 
- module.exports = { getAllDevices, getDeviceLastMeasurement, getAllDeviceMeasurements, getAllDeviceLogs }
+ module.exports = { getAllDevices, getDeviceLastMeasurement, getAllDeviceMeasurements, getAllDeviceLogs, getDeviceLastLog }
 
   const logger           = require('../logger');                  
   const { processQuery } = require('../common');
@@ -109,3 +109,28 @@ function getAllDeviceLogs(req, res)
     processQuery(query, req, res)
 
 }
+
+/*------------------------------------------------------------------*
+ * getDeviceLastLog(req, res)								        *
+ *																	*
+ * Entrada:		req         Request HTTP                            *
+ *																	*
+ * Salida:		res         Response HTTP                           *
+ *																	*
+ * Retorno:	    No posee                                            *
+ *																	*
+ * Descripcion:														*
+ *																	*
+ * Recupera el estado mas actual de la valvula de un dispositivo    *
+ *------------------------------------------------------------------*/
+
+function getDeviceLastLog(req, res)
+{
+     logger.Debug(getDeviceLastLog.name, `Getting last log for device ${req.params.devid} from dB`)
+     query  = `SELECT apertura FROM Log_Riegos INNER JOIN Dispositivos `
+     query += `ON Dispositivos.electrovalvulaId = Log_Riegos.electrovalvulaId `
+     query += `WHERE Dispositivos.dispositivoId = ${req.params.devid} ORDER BY Log_Riegos.fecha DESC LIMIT 1;`; 
+     processQuery(query, req, res)
+}
+
+ 

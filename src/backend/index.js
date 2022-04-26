@@ -23,8 +23,9 @@ app.use(express.static('/home/node/app/static/'));
 
 app.get('/devices/', getRoutes.getAllDevices);                                    // Lista de dispositivos
 app.get('/devices/:devid/lastmeasurement', getRoutes.getDeviceLastMeasurement);   // Ultima medicion de un dispositivo
-app.get('/devices/:devid/allmeasurements', getRoutes.getAllDeviceMeasurements);   // Ultima medicion de un dispositivo
+app.get('/devices/:devid/allmeasurements', getRoutes.getAllDeviceMeasurements);   // Mediciones de un dispositivo
 app.get('/devices/:devid/logsriego', getRoutes.getAllDeviceLogs);                 // Logs de riego de un dispositivo
+app.get('/devices/:devid/lastlogriego', getRoutes.getDeviceLastLog);               // Ultimo log de riego          
 app.patch('/valves/:valveid', patchRoutes.patchDevice);                           // Accion sobre electrovalvula       
 
 app.listen(configParams.backListenPort, (req, res) => {
