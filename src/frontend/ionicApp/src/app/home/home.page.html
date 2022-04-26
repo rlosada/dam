@@ -1,0 +1,9 @@
+<app-title title="Listado de dispositivos" [home]=true></app-title>
+
+<ion-content>
+  <ion-list *ngIf="devices.length > 0" inset lines="none">
+    <app-device *ngFor="let d of devices" [device]="d"></app-device>
+  </ion-list>
+  <ion-button appChButtonBckg color="primary" fill="solid" expand="block" type="button" (click)="reload()">Recuperar dispositivos del remoto</ion-button>
+</ion-content>
+

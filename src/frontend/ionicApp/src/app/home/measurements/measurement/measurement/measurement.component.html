@@ -1,0 +1,25 @@
+<!-- Para la primera se agrega una row adicional con los titulos -->
+<ion-row *ngIf="index === 0">
+  <ion-col class ="title" size-md="2" push-md="3">
+    Nr
+  </ion-col>
+  <ion-col class ="title" size-md="2" push-md="3">
+    Valor [cb]
+  </ion-col>
+  <ion-col class ="title" size-md="2" push-md="3">
+    Fecha
+</ion-col>
+</ion-row>
+
+ <ion-row>
+   <ion-col size-md="2" push-md="3">
+     {{ index + 1 }}
+   </ion-col>
+   <ion-col size-md="2" push-md="3">
+     {{ measurement.value | number: '2.2-2' }}
+   </ion-col>
+   <ion-col size-md="2" push-md="3">
+     {{ measurement.date | date: 'dd/MM/YYYY hh:hh:ss a'}}
+   </ion-col>
+ </ion-row>
+

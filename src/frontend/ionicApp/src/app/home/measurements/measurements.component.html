@@ -1,0 +1,6 @@
+<app-title title="Listado de Mediciones del dispositivo"></app-title>
+<ion-content>
+  <ion-grid [fixed]="true">
+    <app-measurement *ngFor="let m of measurements; let i = index" [measurement]="m" [index]="i"></app-measurement>
+  </ion-grid>
+</ion-content>

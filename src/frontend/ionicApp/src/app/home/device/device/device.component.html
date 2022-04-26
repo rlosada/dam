@@ -1,0 +1,9 @@
+<ion-item detail (click)="showMoreInfo()">
+  <ion-thumbnail>
+    <ion-img src="../../../../assets/sensor.png"></ion-img>
+  </ion-thumbnail>
+  <ion-label>
+    <h2>{{ device.name | titleCase}}</h2>
+    <h3><ion-icon name="location-outline"></ion-icon>{{ device.location | titleCase }}</h3>
+  </ion-label>
+</ion-item>
