@@ -9,6 +9,9 @@ La aplicacion esta dividida en 3 dockers, los cuales se listan a continuacion:
 2. servidor backend con nodejs y express.
 3. servidor frontend con proyecto en ionic. 🔍
 
+Nota: En realidad hay un 4 docker que es el phpmyadmin pero ese aunque esta definido
+en el docker-compose.yml no es estrictamente necesario para el funcionamiento.
+
 # API del servidor backend
 
 Los paths aqui son relativos a http://[ip_docker_frontend]:[port]
