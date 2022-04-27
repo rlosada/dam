@@ -69,3 +69,23 @@ la navegacion.
 
 #  Ejecucion
 Para ejecutar la aplicacion realizar los siguientes pasos:
+
+1. Descargar el proyecto 
+2. Modificar la IP el backend de manera de setear una IP que posea la maquina host donde se correran los docker.
+   El archivo a modificar es src/frontend/ionicApp/src/environment/environment.ts. El campo es el denominado
+   backendUrl.
+3. Crear la imagen docker dam:1.0.0 para ello correr "docker image build -t dam:1.0.0 ." en el directorio descargado
+   del repositorio.
+4. Usando la consola ir hasta src/frontend/ionicApp y ejecutar "npm install" para instalar todas las dependencias.
+5. Finalmente lanzar la aplicacion ejecutando "docker-compose up" en el directorio descargado del repositorio.
+
+# Referencias
+La aplicacion debia contar obligatoriamente con algunas caracteristicas. A continuacion se indican en que partes
+dichas caracteristicas fueron implementadas (puede ser que una caracteristica de las pedidas sea usada en mas de 
+una pero no se mencionen aqui todos los lugares)
+1. Directiva : ngFor. En src/frontend/ionicApp/src/app/home/measurements/measurements.component.html.
+2. Directiva : ngIf.  En src/frontend/ionicApp/src/app/home/measurements/mesurement/measurement.component.html
+3. Pipe custom: titleCase. Usado en src/frontend/ionicApp/src/app/home/device/device/device.component.html. Definido en 
+   src/frontend/ionicApp/src/app/home/common/pipes/
+4. Directiva custom: appChButtonBackg. Usado en src/frontend/ionicApp/src/app/home/common/directives/attr. Definido en 
+   src/frontend/ionicApp/src/app/home/home.page.html
